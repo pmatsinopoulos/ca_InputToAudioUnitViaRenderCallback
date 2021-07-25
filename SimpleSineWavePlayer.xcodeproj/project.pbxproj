@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E528DB6E26AD302C003707A5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E528DB6D26AD302C003707A5 /* main.c */; };
+		E528DB7A26AD32C2003707A5 /* CheckError.c in Sources */ = {isa = PBXBuildFile; fileRef = E528DB7926AD32C2003707A5 /* CheckError.c */; };
+		E528DB8026AD36EA003707A5 /* StopAudioOutputUnit.c in Sources */ = {isa = PBXBuildFile; fileRef = E528DB7F26AD36EA003707A5 /* StopAudioOutputUnit.c */; };
+		E528DB8526ADB03D003707A5 /* FindAudioUnit.c in Sources */ = {isa = PBXBuildFile; fileRef = E528DB8426ADB03D003707A5 /* FindAudioUnit.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,13 @@
 /* Begin PBXFileReference section */
 		E528DB6A26AD302C003707A5 /* SimpleSineWavePlayer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleSineWavePlayer; sourceTree = BUILT_PRODUCTS_DIR; };
 		E528DB6D26AD302C003707A5 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		E528DB7526AD30DA003707A5 /* CallBackData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallBackData.h; sourceTree = "<group>"; };
+		E528DB7826AD3257003707A5 /* CheckError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckError.h; sourceTree = "<group>"; };
+		E528DB7926AD32C2003707A5 /* CheckError.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = CheckError.c; sourceTree = "<group>"; };
+		E528DB7E26AD36EA003707A5 /* StopAudioOutputUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StopAudioOutputUnit.h; sourceTree = "<group>"; };
+		E528DB7F26AD36EA003707A5 /* StopAudioOutputUnit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = StopAudioOutputUnit.c; sourceTree = "<group>"; };
+		E528DB8326ADB03D003707A5 /* FindAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindAudioUnit.h; sourceTree = "<group>"; };
+		E528DB8426ADB03D003707A5 /* FindAudioUnit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = FindAudioUnit.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +67,32 @@
 		E528DB6C26AD302C003707A5 /* SimpleSineWavePlayer */ = {
 			isa = PBXGroup;
 			children = (
+				E528DB7D26AD36C0003707A5 /* AudioUtils */,
+				E528DB7726AD323B003707A5 /* Utils */,
 				E528DB6D26AD302C003707A5 /* main.c */,
+				E528DB7526AD30DA003707A5 /* CallBackData.h */,
 			);
 			path = SimpleSineWavePlayer;
+			sourceTree = "<group>";
+		};
+		E528DB7726AD323B003707A5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E528DB7826AD3257003707A5 /* CheckError.h */,
+				E528DB7926AD32C2003707A5 /* CheckError.c */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E528DB7D26AD36C0003707A5 /* AudioUtils */ = {
+			isa = PBXGroup;
+			children = (
+				E528DB7E26AD36EA003707A5 /* StopAudioOutputUnit.h */,
+				E528DB7F26AD36EA003707A5 /* StopAudioOutputUnit.c */,
+				E528DB8326ADB03D003707A5 /* FindAudioUnit.h */,
+				E528DB8426ADB03D003707A5 /* FindAudioUnit.c */,
+			);
+			path = AudioUtils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +152,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E528DB6E26AD302C003707A5 /* main.c in Sources */,
+				E528DB7A26AD32C2003707A5 /* CheckError.c in Sources */,
+				E528DB8026AD36EA003707A5 /* StopAudioOutputUnit.c in Sources */,
+				E528DB8526ADB03D003707A5 /* FindAudioUnit.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

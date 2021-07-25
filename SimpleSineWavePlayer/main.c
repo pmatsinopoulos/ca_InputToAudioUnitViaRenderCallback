@@ -12,7 +12,7 @@
 #include "CallBackData.h"
 #include "CheckError.h"
 #include "StopAudioOutputUnit.h"
-#include "FindAudioUnit.h"
+#include "FindAudioComponent.h"
 
 #define SINE_FREQUENCY 880.0
 #define SAMPLE_FREQUENCY 44100.0
@@ -59,27 +59,28 @@ OSStatus SineWaveRenderProc (void *inRefCon,
   return noErr;
 }
 
-void BuildAudioUnitDescription(AudioComponentDescription *oAudioComponentDescription) {
+void BuildAudioComponentDescription(AudioComponentDescription *oAudioComponentDescription) {
   oAudioComponentDescription->componentType = kAudioUnitType_Output;
   oAudioComponentDescription->componentSubType = kAudioUnitSubType_DefaultOutput;
   oAudioComponentDescription->componentManufacturer = kAudioUnitManufacturer_Apple;
 }
 
-void CreateAndConnectOutputUnit(CallBackData *callBackData) {
-  AudioComponentDescription outputAudioUnitDescription = {0};
+AudioUnit CreateAndConnectOutputUnit(CallBackData *callBackData) {
+  AudioComponentDescription outputAudioComponentDescription = {0};
   
-  BuildAudioUnitDescription(&outputAudioUnitDescription);
+  BuildAudioComponentDescription(&outputAudioComponentDescription);
     
-  AudioComponent outputAudioUnit = FindAudioUnit(outputAudioUnitDescription);
+  AudioComponent outputAudioComponent = FindAudioComponent(outputAudioComponentDescription);
+  AudioUnit outputAudioUnit;
     
-  CheckError(AudioComponentInstanceNew(outputAudioUnit,
-                                       &callBackData->outputAudioUnit),
+  CheckError(AudioComponentInstanceNew(outputAudioComponent,
+                                       &outputAudioUnit),
              "Instantiating the Output Audio Unit");
   
   AURenderCallbackStruct input;
   input.inputProc = SineWaveRenderProc;
   input.inputProcRefCon = callBackData;
-  CheckError(AudioUnitSetProperty(callBackData->outputAudioUnit,
+  CheckError(AudioUnitSetProperty(outputAudioUnit,
                                   kAudioUnitProperty_SetRenderCallback,
                                   kAudioUnitScope_Input,
                                   0,
@@ -87,22 +88,24 @@ void CreateAndConnectOutputUnit(CallBackData *callBackData) {
                                   sizeof(input)),
              "Setting the Output Audio Unit property for rendering callback");
   
-  CheckError(AudioUnitInitialize(callBackData->outputAudioUnit),
+  CheckError(AudioUnitInitialize(outputAudioUnit),
              "Audio Unit Initialize");
+  
+  return outputAudioUnit;
 }
 
 int main(int argc, const char * argv[]) {
   CallBackData callBackData = {0};
   
-  CreateAndConnectOutputUnit(&callBackData);
+  AudioUnit outputAudioUnit = CreateAndConnectOutputUnit(&callBackData);
   
   // Since we do not work with AU Graph, we start directly the audio output unit
-  CheckError(AudioOutputUnitStart(callBackData.outputAudioUnit),
+  CheckError(AudioOutputUnitStart(outputAudioUnit),
              "Starting the Output Audio Unit");
   
   sleep(5);
-cleanup:
-  StopAudioOutputUnit(callBackData.outputAudioUnit);
+
+  StopAudioOutputUnit(outputAudioUnit);
   
   printf("Bye!\n");
   

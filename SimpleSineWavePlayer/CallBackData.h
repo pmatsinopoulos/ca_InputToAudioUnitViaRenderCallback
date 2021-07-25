@@ -11,7 +11,6 @@
 #include <AudioToolbox/AudioComponent.h>
 
 typedef struct CallBackData {
-  AudioUnit outputAudioUnit;
   double startingFrameCount;
 } CallBackData;
 

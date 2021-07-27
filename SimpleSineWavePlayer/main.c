@@ -35,21 +35,23 @@ OSStatus SineWaveRenderProc (void *inRefCon,
   int frame = 0;
   // we have to fill in all the frames that the callback caller specifies.
   for (frame = 0; frame < inNumberFrames; frame++) {
-    // I go to the first buffer and the value of `mData` and save it into a `Float32 *` var.
-    // Hence +data+ is a pointer to the beginning of the audio data buffer.
-    Float32 *data = (Float32 *)ioData->mBuffers[0].mData;
-    
     // We populate the current frame audio data value/sample with the result of `sin` function
     Float32 sampleValue = (Float32)sin(2 * M_PI * (frameInPeriod / sinePeriodLengthInFrames));
+
+    // I go to the first buffer and the value of `mData` and save it into a `Float32 *` var.
+    // Hence +data+ is a pointer to the beginning of the audio data buffer.
+    
+    // first for the +left+ channel
+    Float32 *data = (Float32 *)ioData->mBuffers[0].mData;
     (data)[frame] = sampleValue;
     
-    // copy to right channel too
+    // then for the right channel too
     data = (Float32*)ioData->mBuffers[1].mData;
     (data)[frame] = sampleValue;
    
     frameInPeriod += 1.0;
     
-    if (frameInPeriod > sinePeriodLengthInFrames) {
+    if (frameInPeriod >= sinePeriodLengthInFrames) {
       frameInPeriod = 0; // returns it back to 0?
     }
   } // for ()
